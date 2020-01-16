@@ -7,9 +7,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
+  isSubmiting = false;
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  submitForm(a): void {
+    this.isSubmiting = true;
+    const data: Data = a;
+    console.log('data', data);
+  }
+
+}
+
+export interface Data {
+  email: string;
+  nombre;
 }
