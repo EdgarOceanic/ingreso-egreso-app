@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
+import { GlobalService } from 'src/app/global/global.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent implements OnInit {
   isSubmiting: boolean;
   msgError: string;
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private globalService: GlobalService) {
     this.isSubmiting = false;
   }
 
@@ -26,16 +28,14 @@ export class LoginComponent implements OnInit {
       this.msgError = 'Completa todos los campos del formulario';
       return;
     }
-    console.log('data', data);
     // this.authService.logIn(data.email, data.password);
+
     this.authService.logInPromise(data.email, data.password)
       .then((user) => {
-        console.log('login exitoso: ', user);
-        // this.router.navigate(['/']);
+        this.globalService.navigateTo('/');
       })
       .catch((error) => {
-        console.error('error en el login: ', error);
-        this.msgError = error.message;
+        this.globalService.showModalError('Error en el login', error.message);
       });
   }
 
