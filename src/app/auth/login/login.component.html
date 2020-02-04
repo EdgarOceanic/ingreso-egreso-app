@@ -1,50 +1,96 @@
-
-    <div class="page-body-wrapper full-page-wrapper auth-page">
-      <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
-        <div class="row w-100">
-          <div class="col-lg-4 mx-auto">
-            <h2 class="text-center mb-4" style="color: white;">Ingresar</h2>
-            <div class="auto-form-wrapper">
-              <form action="#">
-                <div class="form-group">
-                  <label class="label">Usuario</label>
-                  <div class="input-group">
-                    <input type="email" class="form-control" placeholder="Email">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i class="fa fa-check-circle"></i>
-                      </span>
-                    </div>
-                  </div>
+<div class="page-body-wrapper full-page-wrapper auth-page">
+  <div
+    class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one"
+  >
+    <div class="row w-100">
+      <div class="col-lg-4 mx-auto">
+        <h2 class="text-center mb-4" style="color: white;">Ingresar</h2>
+        <div class="auto-form-wrapper">
+          <!--FORM-->
+          <form #formLogin="ngForm" (ngSubmit)="submitLoginForm(formLogin)">
+            <!-- EMAIL -->
+            <div class="form-group">
+              <label class="label" for="email">Email</label>
+              <div class="input-group">
+                <input
+                  id="email"
+                  type="email"
+                  class="form-control"
+                  placeholder="Email"
+                  ngModel
+                  name="email"
+                  required
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="fa fa-check-circle"></i>
+                  </span>
                 </div>
-                <div class="form-group">
-                  <label class="label">Contraseña</label>
-                  <div class="input-group">
-                    <input type="password" class="form-control" placeholder="*********">
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i class="fa fa-check-circle"></i>
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <button class="btn btn-primary submit-btn btn-block">Login</button>
-                </div>
-                
-                
-                <div class="text-block text-center my-3">
-                  <span class="text-small font-weight-semibold">No estas registrado? </span>
-                  <br>
-                  <a routerLink="/register" class="text-black text-small">Crear una cuenta</a>
-                </div>
-              </form>
+              </div>
             </div>
-            
-            
-          </div>
+
+            <!-- Password -->
+            <div class="form-group">
+              <label class="label">Password</label>
+              <div class="input-group">
+                <input
+                  id="password"
+                  type="password"
+                  class="form-control"
+                  placeholder="*********"
+                  ngModel
+                  name="password"
+                  required
+                />
+                <div class="input-group-append">
+                  <span class="input-group-text">
+                    <i class="fa fa-check-circle"></i>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mensaje de Error -->
+            <div class="form-group" *ngIf="isSubmiting && msgError">
+              <label class="label text-danger">{{ msgError }}</label>
+            </div>
+
+            <!-- SUBMIT -->
+            <div class="form-group">
+              <button
+                type="submit"
+                class="btn btn-primary submit-btn btn-block"
+                *ngIf="!isLoading"
+              >
+                Login
+              </button>
+
+              <!-- LOADING -->
+              <button
+                class="btn btn-success submit-btn btn-block"
+                [disabled]="true"
+                *ngIf="isLoading"
+                type="button"
+              >
+                <i class="fa fa-spin fa-sync"></i>
+                Ingresando...
+              </button>
+            </div>
+
+            <div class="text-block text-center my-3">
+              <span class="text-small font-weight-semibold"
+                >No estas registrado?
+              </span>
+              <br />
+              <a routerLink="/register" class="text-black text-small"
+                >Crear una cuenta</a
+              >
+              <a routerLink="/">dash</a>
+            </div>
+          </form>
         </div>
       </div>
-      <!-- content-wrapper ends -->
     </div>
-  
+  </div>
+  <!-- content-wrapper ends -->
+</div>
