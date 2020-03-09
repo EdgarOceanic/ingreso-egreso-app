@@ -24,6 +24,7 @@ import { Subscription } from 'rxjs';
 export class AuthService {
 
   private userSubscription: Subscription;
+  private usuario: UserModel.User;
 
   constructor(private afAuth: AngularFireAuth,
     private globalService: GlobalService,
@@ -46,8 +47,10 @@ export class AuthService {
           console.log('change:', user.email + ' - ' + Math.random() / 10);
           const authAction = new SetUserAction(userData);
           this.store.dispatch(authAction);
+          this.usuario = userData;
         });
     } else {
+      this.usuario = null;
       if (this.userSubscription) {
         this.userSubscription.unsubscribe();
       }
@@ -100,6 +103,7 @@ export class AuthService {
         })
         .catch(error => reject(error));
     });
+
   }
 
   logIn(email: string, password: string): void {
@@ -147,6 +151,13 @@ export class AuthService {
         }
       })
     );
+  }
+
+
+  getUser(): UserModel.User {
+    return {
+      ... this.usuario
+    };
   }
 
 

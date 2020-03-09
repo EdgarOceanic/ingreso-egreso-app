@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
 
+
   private registerSubscription: Subscription;
 
   constructor(private authService: AuthService,
@@ -32,8 +33,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.registerSubscription.unsubscribe();
   }
-
-
 
 
   submitForm(form: NgForm): void {
